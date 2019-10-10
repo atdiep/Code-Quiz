@@ -1,3 +1,7 @@
+var count = 0;
+var startEl = document.querySelector("#start");
+
+function startQuiz() {
 var questions = [
     {
         title: "Which color is not considered to be one of the primary colors of light?",
@@ -23,8 +27,7 @@ var questions = [
         title: "The Declaration of Independence was written by whom?",
         choices: ["Benjamin Franklin", "Thomas Jefferson", "James Madison", "George Washington"],
         answer: "Thomas Jefferson"
-    },
-];
+    }]};
 
 // Header with 'View Highscores' and timer'
 // Intro with a 'Start Quiz' button to intiate the quiz.
@@ -40,5 +43,12 @@ function setTime() {
     var timerInterval = setInterval(function() {
         secondsLeft--;
         timeEL.textContent = "Time: " + secondsLeft;
-    })
+
+        if(secondsLeft === 0) {
+            clearInterval(timerInterval);
+            myQuestions(); // Function that skip to the next question and count the last question inccorect.
+        }
+    }, 1000);
 }
+
+setTime();
