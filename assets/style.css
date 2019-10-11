@@ -1,0 +1,13 @@
+body {
+    background-image: url(./images/pokemon.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%; 
+}
+h1 {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
