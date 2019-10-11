@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Pokemon Master Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
+
 <body>
-    <form>
-        <input placeholder="initial" id="initial" />
-        <button id="submit">Submit</button>
-    </form>
+
+    <div class="start">
+        <h1>Pokemon Master Quiz</h1>
+        <h2>Welcome</h2>
+        <a href="#">Start Quiz</a>
+    </div>
+
+    <div class="quiz">
+        <h2>Question Title</h2>
+        <ul>
+            <li>Choice</li>
+            <li>Choice</li>
+            <li>Choice</li>
+            <li>Choice</li>
+        </ul>
+    </div>
+
+    <div class="summary">
+        <h2>All Done!</h2>
+        <p>Congrats you scored x out of y correct!</p>
+        <form>
+            <input placeholder="initial" id="initial" />
+            <button id="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="final">
+        <h2>Scoreboard</h2>
+        <a href="#">Restart Quiz</a>
+        <a href="#">Clear Scoreboard</a>
+    </div>
+
     <script src="./script.js"></script>
+
 </body>
+
 </html>
