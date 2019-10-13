@@ -1,9 +1,11 @@
-console.log("scriptLoading")
 // Track the number of correct answers
 var score = 0;
 // Track the index where we are in the questions.
 var currentQuestion = 0;
 // List of quesions in arrays
+
+var timeEL = document.querySelector(".time");
+
 var questions = [
     {
         title: "What's the most effective Poke Ball in the game?",
@@ -33,10 +35,11 @@ var questions = [
 
 // This code makes sure that the JavaScript doesn't get run until the HTML is finished loading
 $(document).ready(function () {
-    
+
     $(".quiz").hide();
     $(".summary").hide();
     $(".final").hide();
+
     // Create an event listener on "Start Quiz". Hide the starting screen to show the quiz.
     $(".start button").on("click", function (event) {
         event.preventDefault();
@@ -45,21 +48,13 @@ $(document).ready(function () {
         showQuestion();
     });
     // Create an event listener on li when an option is being selected by user.
-    // $(".quiz ul").on("click", "li", function () {
-    //     $(".selected").removeClass("selected");
-    //     $(this).addClass("selected");
-    // });
-    // Create an event listener on "Submit Answer" and assign a var for user answers.
     $(".quiz ul").on("click", "li", function (event) {
         event.preventDefault();
         $(".selected").removeClass("selected");
         $(this).addClass("selected");
         if ($("li.selected").length) {
-            console.log("Guess")
             var guess = parseInt($("li.selected").attr("id"));
             checkAnswer(guess);
-        } else {
-            alert("Please select an answer.");
         }
     });
     // Create an event listener on "Submit" to store the user initial and score and submit to scoreboard.
@@ -73,7 +68,7 @@ $(document).ready(function () {
         } else {
             localStorage.setItem("initial", initial);
         }
-        $(".highScore").append("<li>" + initial + score + "</li>");
+        $(".highScore").append("<li>" + initial + " - " + score + "</li>");
         showScore();
     })
     // Create an event listener on "Restart Quiz" to restart the quiz.
@@ -82,14 +77,31 @@ $(document).ready(function () {
         restartQuiz();
     });
     // Create an event listener on "Clear Scoreboard" to clear all scores.
-    $("#clear").on("click", function(event) {
+    $("#clear").on("click", function (event) {
         $("ul").html("");
     });
 
+    $("header a").on("click", function () {
+        showScore();
+    })
+
 });
+
 
 // Create a function to show up one at a time.
 function showQuestion() {
+    var secondsLeft = 15;
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timeEL.textContent = "TIme: " + secondsLeft;
+        if (secondsLeft === 0) {
+            stopInterval();
+        }
+    }, 1000);
+
+    var stopInterval = function () {
+        clearInterval(timerInterval);
+    }
     var question = questions[currentQuestion];
     $(".quiz h3").text(question.title);
     $(".quiz ul").html("");
@@ -121,32 +133,18 @@ function showSummary() {
 
 function showScore() {
     $(".summary").hide();
+    $(".quiz").hide();
     $(".final").show();
 }
 // Create a function that restart the quiz when requested by user.
 function restartQuiz() {
     $(".summary").hide();
+    $(".final").hide();
     $(".quiz").show();
     score = 0;
     currentQuestion = 0;
     showQuestion();
 }
 
-// Create a function that allows 15 seconds per question. If timer runs out, question counts as incorrect and skip to the next question.
+// //Create a function that allows 15 seconds per question. If timer runs out, question counts as incorrect and skip to the next question.
 
-// var timeEL = document.querySelector(".time");
-// var secondsLeft = 15;
-
-// function setTime() {
-//     var timerInterval = setInterval(function () {
-//         secondsLeft--;
-//         timeEL.textContent = "Time: " + secondsLeft;
-
-//         if (secondsLeft === 0) {
-//             clearInterval(timerInterval);
-//             myQuestions(); // Function that skip to the next question and count the last question inccorect.
-//         }
-//     }, 1000);
-// }
-
-// setTime();
