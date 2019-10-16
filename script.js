@@ -41,7 +41,7 @@ $(document).ready(function () {
     $(".final").hide();
 
     // Create an event listener on "Start Quiz". Hide the starting screen to show the quiz.
-    $(".start button").on("click", function (event) {
+    $("#startquiz").on("click", function (event) {
         event.preventDefault();
         $(".start").hide();
         $(".quiz").show();
@@ -88,12 +88,12 @@ $(document).ready(function () {
 });
 
 
-// Create a function to show up one at a time.
+// Create a function to show up one at a time and 15 seconds per question.
 function showQuestion() {
     var secondsLeft = 15;
     var timerInterval = setInterval(function () {
         secondsLeft--;
-        timeEL.textContent = "TIme: " + secondsLeft;
+        timeEL.textContent = "Time: " + secondsLeft;
         if (secondsLeft === 0) {
             stopInterval();
         }
@@ -102,6 +102,7 @@ function showQuestion() {
     var stopInterval = function () {
         clearInterval(timerInterval);
     }
+
     var question = questions[currentQuestion];
     $(".quiz h3").text(question.title);
     $(".quiz ul").html("");
@@ -127,11 +128,13 @@ function checkAnswer(guess) {
 // Create a function that show the overall summary.
 function showSummary() {
     $(".quiz").hide();
+    $("#countdown").hide();
     $(".summary").show();
     $(".summary p").text("Congrats you scored " + score + " out of " + questions.length + " correct!")
 }
 
 function showScore() {
+    $("#countdown").hide();
     $(".summary").hide();
     $(".quiz").hide();
     $(".final").show();
@@ -140,11 +143,10 @@ function showScore() {
 function restartQuiz() {
     $(".summary").hide();
     $(".final").hide();
+    $("#countdown").show();
     $(".quiz").show();
     score = 0;
     currentQuestion = 0;
     showQuestion();
 }
-
-// //Create a function that allows 15 seconds per question. If timer runs out, question counts as incorrect and skip to the next question.
 
